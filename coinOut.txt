@@ -1,0 +1,259 @@
+/*
+* Stepper_motor.c
+*
+* Created: 9/26/2016 6:03:26 PM
+* Author : upeksha madumali
+*/
+//#ifndef F_CPU
+#define F_CPU 1000000 // 16 MHz clock speed
+//#endif
+#include <avr/io.h>
+#include <util/delay.h>
+#include "lcd.h"
+#include "myutils.h"
+#include "my keypad2.h"
+#define ENTER 15
+#define Rs1 11
+#define Rs2 12
+#define Rs5 13
+#define Rs10 14
+#define BACK 16
+int Rs_1();
+int Rs_2();
+int Rs_5();
+int Rs_10();
+int coin_counter_1=0,coin_counter_2=0,coin_counter_5=0,coin_counter_10=0,z;
+int main(void)
+{
+while (1)
+{
+LCDInit(LS_NONE);
+keypad_read();
+LCDWriteStringXY(0,0,"Coin counter ");
+LCDWriteStringXY(0,1," ");
+if(keypad_value==Rs1)
+{
+Rs_1(); //Rs.1 motor
+}
+if(keypad_value==Rs2)
+{
+Rs_2(); //Rs.2 motor
+}
+if(keypad_value==Rs5)
+{
+Rs_5(); //Rs.5 motor
+}
+if(keypad_value==Rs10)
+{
+Rs_10(); //Rs.10 motor
+}
+}
+}
+int Rs_1()
+{
+z=10;
+while(1)
+{
+keypad_read();
+if(z==10)
+{
+LCDWriteStringXY(0,0,"Rs.1 coin ");
+LCDWriteStringXY(0,1,"Number of coin ");
+}
+if(keypad_value<10 && z>8)
+{
+if(z==10)
+{
+LCDClear();
+}
+coin_counter_1=keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_1,3);
+z=0;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==0 && keypad_counter>0)
+{
+coin_counter_1=coin_counter_1*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_1,3);
+z=1;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==1 && keypad_counter>0)
+{
+coin_counter_1=coin_counter_1*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_1,3);
+z=2;
+}
+if(keypad_value==BACK)
+{
+coin_counter_1=0;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_1,3);
+z=9;
+}
+if(keypad_value==ENTER)
+{
+return(0);
+}
+}
+return(0);
+}
+int Rs_2()
+{
+z=10;
+while(1)
+{
+keypad_read();
+if(z==10)
+{
+LCDWriteStringXY(0,0,"Rs.2 coin ");
+LCDWriteStringXY(0,1,"Number of coin ");
+}
+if(keypad_value<10 && z>8)
+{
+if(z==10)
+{
+LCDClear();
+}
+coin_counter_2=keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_2,3);
+z=0;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==0 && keypad_counter>0)
+{
+coin_counter_2=coin_counter_2*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_2,3);
+z=1;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==1 && keypad_counter>0)
+{
+coin_counter_2=coin_counter_2*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_2,3);
+z=2;
+}
+if(keypad_value==BACK)
+{
+coin_counter_2=0;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_2,3);
+z=9;
+}
+if(keypad_value==ENTER)
+{
+return(0);
+}
+}
+return(0);
+}
+int Rs_5()
+{
+z=10;
+while(1)
+{
+keypad_read();
+if(z==10)
+{
+LCDWriteStringXY(0,0,"Rs.5 coin ");
+LCDWriteStringXY(0,1,"Number of coin ");
+}
+if(keypad_value<10 && z>8)
+{
+if(z==10)
+{
+LCDClear();
+}
+coin_counter_5=keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_5,3);
+z=0;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==0 && keypad_counter>0)
+{
+coin_counter_5=coin_counter_5*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_5,3);
+z=1;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==1 && keypad_counter>0)
+{
+coin_counter_5=coin_counter_5*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_5,3);
+z=2;
+}
+if(keypad_value==BACK)
+{
+coin_counter_5=0;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_5,3);
+z=9;
+}
+if(keypad_value==ENTER)
+{
+return(0);
+}
+}
+return(0);
+}
+int Rs_10()
+{
+z=10;
+while(1)
+{
+keypad_read();
+if(z==10)
+{
+LCDWriteStringXY(0,0,"Rs.10 coin ");
+LCDWriteStringXY(0,1,"Number of coin ");
+}
+if(keypad_value<10 && z>8)
+{
+if(z==10)
+{
+LCDClear();
+}
+coin_counter_10=keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_10,3);
+z=0;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==0 && keypad_counter>0)
+{
+coin_counter_10=coin_counter_10*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_10,3);
+z=1;
+keypad_counter=0;
+}
+if(keypad_value<10 && z==1 && keypad_counter>0)
+{
+coin_counter_10=coin_counter_10*10+keypad_value;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_10,3);
+z=2;
+}
+if(keypad_value==BACK)
+{
+coin_counter_10=0;
+LCDWriteStringXY(0,0,"Number of coin ");
+LCDWriteIntXY(6,1,coin_counter_10,3);
+z=9;
+}
+if(keypad_value==ENTER)
+{
+return(0);
+}
+}
+return(0);
+}
